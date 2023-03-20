@@ -1,15 +1,12 @@
 ﻿using Home_Work.DAL.Models;
-using System;
+using Home_Work.Data.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Home_Work.DAL.Infrastructure
 {
-    internal interface IBaseInterface<T>
+    public interface IBaseInterface<T>
     {
-        bool Create(T entity);
+        bool CreateNewStudent(string name, string lastname, string yearOfStudy);
         T Get(int id);
         List<Student> Select();
         bool Delete(int id);

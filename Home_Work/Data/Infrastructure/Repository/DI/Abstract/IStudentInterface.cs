@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Home_Work.DAL.Infrastructure
 {
-    internal interface IStudentInterface:IBaseInterface<Student>
+    public interface IStudentInterface:IBaseInterface<Student>
     {
         Student GetByName(string name);
     }

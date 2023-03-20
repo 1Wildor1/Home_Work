@@ -45,8 +45,6 @@
                 field: "YearOfStudy",
                 title: "Year Of Study",
                 width: "120px"
-            }, {
-                field: "Title"
             }]
         };
 

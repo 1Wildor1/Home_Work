@@ -264,30 +264,32 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="DAL\Context\StudentContext.cs" />
-    <Compile Include="DAL\Controllers\StudentController.cs" />
-    <Compile Include="DAL\Infrastructure\IBaseInterface.cs" />
-    <Compile Include="DAL\Infrastructure\IStudentInterface.cs" />
-    <Compile Include="DAL\Models\Model1.Context.cs">
+    <Compile Include="Data\Controllers\StudentActionController.cs" />
+    <Compile Include="Data\Controllers\API\StudentActionApiController.cs" />
+    <Compile Include="Data\Infrastructure\Repository\DI\Abstract\IBaseInterface.cs" />
+    <Compile Include="Data\Infrastructure\Repository\DI\Abstract\IStudentInterface.cs" />
+    <Compile Include="Data\Infrastructure\Repository\DI\Implementation\StudentSqlCreator.cs" />
+    <Compile Include="Data\Models\Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAL\Models\Model1.cs">
+    <Compile Include="Data\Models\Model1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAL\Models\Model1.Designer.cs">
+    <Compile Include="Data\Models\Model1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
-    <Compile Include="DAL\Models\Student.cs" />
-    <Compile Include="DAL\Models\tbl_Student.cs">
+    <Compile Include="Data\Models\Student.cs" />
+    <Compile Include="Data\Models\StudentSql.cs" />
+    <Compile Include="Data\Models\tbl_Student.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAL\Repositories\StudentRepository.cs" />
+    <Compile Include="Data\Infrastructure\Repository\DI\Implementation\StudentRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -310,12 +312,12 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
-    <Content Include="DAL\Models\Model1.Context.tt">
+    <Content Include="Data\Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model1.Context.cs</LastGenOutput>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
-    <Content Include="DAL\Models\Model1.tt">
+    <Content Include="Data\Models\Model1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
@@ -329,11 +331,11 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="DAL\Models\Model1.edmx">
+    <EntityDeploy Include="Data\Models\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="DAL\Models\Model1.edmx.diagram">
+    <Content Include="Data\Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
@@ -366,7 +368,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

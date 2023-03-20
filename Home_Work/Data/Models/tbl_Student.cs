@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Home_Work.DAL.Models
+namespace Home_Work.Data.Models
 {
     using System;
     using System.Collections.Generic;
