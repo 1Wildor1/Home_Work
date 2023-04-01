@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "CreateStudent";
+}
+
+<h3>Форма для создания студента</h3>
+
+@if (TempData["SM"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SM"]
+    </div>
+}
+
+
+
+<form method="post" action="">
+    <table>
+        <tr>
+            <td><p>введите ваше имя</p></td>
+            <td><input type="text" name="name" /></td>
+        </tr>
+
+        <tr>
+            <td><p>введите вашу фамилию</p></td>
+            <td><input type="text" name="lastname" /></td>
+        </tr>
+
+        <tr>
+            <td><p>введите ваш курс</p></td>
+            <td>
+                <select id="yearOfStudy" name="yearOfStudy">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                </select>
+            </td>
+        </tr>
+        <tr><td><input type="submit" value="отправить" /></td></tr>
+    </table>
+</form>
+
+<div id="time"></div>

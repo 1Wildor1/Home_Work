@@ -1,0 +1,91 @@
+﻿@{
+    ViewBag.Title = "GetStudent";
+}
+
+<link href="https://kendo.cdn.telerik.com/themes/6.2.0/default/default-main.css" rel="stylesheet" />
+<script src="~/Kendo/kendoui.for.jquery.2023.1.314.trial/js/jquery.min.js"></script>
+<script src="~/Kendo/kendoui.for.jquery.2023.1.314.trial/js/angular.min.js"></script>
+
+
+<script src="~/Kendo/kendoui.for.jquery.2023.1.314.trial/js/kendo.all.min.js"></script>
+
+<h2>GetStudent</h2>
+
+
+<div ng-app="KendoDemos">
+    <div ng-controller="MyCtrl">
+
+        <kendo-grid options="mainGridOptions">
+            <div k-detail-template>
+                <kendo-tabstrip>
+                    <ul>
+                        <li class="k-active">Orders</li>
+                        <li>Contact information</li>
+                    </ul>
+                    <div>
+                        <div kendo-grid k-options="detailGridOptions(dataItem)"></div>
+                    </div>
+                    <div>
+                        <ul class="contact-info-form">
+                            <li>
+                                <label>Country:</label>
+                                <span class="k-textbox k-input k-input-md k-rounded-md k-input-solid">
+                                    <input type="text" class="k-input-inner" ng-model="dataItem.Country" />
+                                </span>
+                            <li>
+                                <label>City:</label>
+                                <span class="k-textbox k-input k-input-md k-rounded-md k-input-solid">
+                                    <input type="text" class="k-input-inner" ng-model="dataItem.City" />
+                                </span>
+                            <li><label>Address:</label> {{dataItem.Address}}</li>
+                            <li><label>Home phone:</label> {{dataItem.HomePhone}}</li>
+                        </ul>
+                    </div>
+                </kendo-tabstrip>
+            </div>
+        </kendo-grid>
+
+    </div>
+
+    <script>
+        debugger;
+        angular.module("KendoDemos", ["kendo.directives"])
+            .controller("MyCtrl", function ($scope) {
+                $scope.mainGridOptions = {
+                    dataSource: {
+                        type: "aspnetmvc-ajax",
+                        transport: {
+                            read: {
+                                type: 'Get',
+                                url: "~/Data/Controllers/API/StudentApiController/GetStudentSerialize",
+                                dataType: 'json',
+                                cache: false
+                            },
+                            pageSize: 4,
+                            serverPaging: true,
+                            serverSorting: true
+                        },
+                        columns: [
+                            {
+                                field: "StudentID",
+                                title: "Student ID",
+                                width: "120px"
+                            }, {
+                                field: "FirstName",
+                                title: "First Name",
+                                width: "120px"
+                            }, {
+                                field: "LastName",
+                                title: "Last Name",
+                                width: "120px"
+                            }, {
+                                field: "YearOfStudy",
+                                title: "Year Of Study",
+                                width: "120px"
+                            }]
+                    }
+                }
+            });
+    </script>
+</div>
+

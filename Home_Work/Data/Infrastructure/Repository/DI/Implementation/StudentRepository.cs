@@ -7,38 +7,29 @@ using System.Data.SqlClient;
 
 namespace Home_Work.DAL.Repositories
 {
-    public class StudentRepository : IStudentInterface
+    public class StudentRepository : IRepositoryInterface
     {
         string connection_string = "Data Source=NORM-GELEZO;Initial Catalog=Student;Persist Security Info=true;User ID=student;Password=student";
 
 
-
-        public bool CreateNewStudent(string name, string lastname, string yearOfStudy)
+        public void CreateNewStudent(string name, string lastname, string yearOfStudy)
         {
             using (var sqlConnection = new SqlConnection(connection_string))
             {
                 sqlConnection.Open();
 
-                using (var cmd = new SqlCommand(StudentSqlCreator.ForCreate($"{name}", $"{lastname}", $"{yearOfStudy}").SqlText, sqlConnection))
+                using (var cmd = new SqlCommand(StudentSqlCreator.ForCreate(name, lastname, yearOfStudy).SqlText, sqlConnection))
                 {
-                    var reader = cmd.ExecuteReader();
+                    var reader = cmd.ExecuteNonQuery();
 
                     cmd.CommandType = CommandType.Text;
 
-                    if (reader.Read())
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
                 }
             }
 
         }
 
-        public bool Delete(int id)
+        public void Delete(int id)
         {
             using (var sqlConnection = new SqlConnection(connection_string))
             {
@@ -50,14 +41,6 @@ namespace Home_Work.DAL.Repositories
 
                     cmd.CommandType = CommandType.Text;
 
-                    if (reader.Read())
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
                 }
             }
         }
@@ -115,8 +98,6 @@ namespace Home_Work.DAL.Repositories
         public List<Student> Select()
         {
 
-
-
             using (var sqlConnection = new SqlConnection(connection_string))
             {
                 sqlConnection.Open();
@@ -138,7 +119,6 @@ namespace Home_Work.DAL.Repositories
                         model.YearOfStudy = reader.GetString(3).ToString();
                         students.Add(model);
                     }
-
 
                     return students;
                 }

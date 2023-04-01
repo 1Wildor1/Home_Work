@@ -4,47 +4,51 @@
 }
 <h2>GetStudent</h2>
 
-@Scripts.Render("~/Views/Student/JavaScript.js");
 
-<div id="example" ng-app="KendoDemos">
-    <div ng-controller="MyCtrl">
-        <kendo-grid options="mainGridOptions">
-            <div k-detail-template>
-                <kendo-tabstrip>
-                    <ul>
-                        <li class="k-active">Orders</li>
-                        <li>Contact information</li>
-                    </ul>
-                    <div>
-                        <div kendo-grid k-options="detailGridOptions(dataItem)"></div>
-                    </div>
-                    <div>
-                        <ul class="contact-info-form">
-                            <li>
-                                <label>Country:</label>
-                                <span class="k-textbox k-input k-input-md k-rounded-md k-input-solid">
-                                    <input type="text" class="k-input-inner" ng-model="dataItem.Country" />
-                                </span>
-                            <li>
-                                <label>City:</label>
-                                <span class="k-textbox k-input k-input-md k-rounded-md k-input-solid">
-                                    <input type="text" class="k-input-inner" ng-model="dataItem.City" />
-                                </span>
-                            <li><label>Address:</label> {{dataItem.Address}}</li>
-                            <li><label>Home phone:</label> {{dataItem.HomePhone}}</li>
-                        </ul>
-                    </div>
-                </kendo-tabstrip>
-            </div>
-        </kendo-grid>
+<div id="my-grid"></div>
 
+<script>
+    let myDataArray = [
+        { ID: 1, Name: "Tom", Date: "10/15/2022" },
+        { ID: 2, Name: "John", Date: "11/25/2022" },
+        { ID: 3, Name: "Annie", Date: "05/09/2022" },
+        { ID: 4, Name: "Rachel", Date: "08/06/2022" },
+        { ID: 5, Name: "Klemens", Date: "10/07/2022" },
+        { ID: 6, Name: "Micah", Date: "05/19/2022" },
+        { ID: 7, Name: "Junie", Date: "04/04/2022" },
+        { ID: 8, Name: "Krishnah", Date: "07/19/2022" },
+        { ID: 9, Name: "Enrichetta", Date: "01/11/2022" },
+        { ID: 10, Name: "Marten", Date: "02/13/2022" },
+        { ID: 11, Name: "Rosmunda", Date: "08/15/2022" },
+    ];
 
-    </div>
-</div>
+    $("#my-grid").kendoGrid({
+        width: "700px",
+        height: "400px",
 
-@section Scripts
-{
-    <script src="~/Views/Student/JavaScript.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-}
+        toolbar: ["create", "save"],
+        filterable: true,
+        editable: true,
+
+         columns: [
+            { field: "ID", title: "Personal Id", width: "70px" },
+            { field: "Name", title: "First Name", width: "150px" },
+            { field: "Date", title: "Hire Date", width: "200px", format: "{0:dd-MM-yyyy}" }
+        ],
+        dataSource: {
+            data: myDataArray,
+            schema: {
+                model: {
+                    id: "ID",
+                    fields: {
+                        ID: { type: "number", editable: false },
+                        Name: { type: "string", editable: false },
+                        Date: { type: "date", editable: false }
+                    }
+                }
+            }
+        }
+    })
+
+</script>
+

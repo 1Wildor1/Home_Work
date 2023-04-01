@@ -10,6 +10,8 @@ namespace Home_Work.Controllers
     {
         public ActionResult Index()
         {
+
+
             return View();
         }
 
