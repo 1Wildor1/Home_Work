@@ -3,16 +3,15 @@
     ViewBag.Title = "CreateStudent";
 }
 
+
 <h3>Форма для создания студента</h3>
 
 @if (TempData["SM"] != null)
 {
-    <div class="alert alert-success">
+    <div class="alert @ViewBag.Message tamp">
         @TempData["SM"]
     </div>
 }
-
-
 
 <form method="post" action="">
     <table>
@@ -37,8 +36,13 @@
                 </select>
             </td>
         </tr>
-        <tr><td><input type="submit" value="отправить" /></td></tr>
+        <tr>
+        </tr>
+        <tr><td><input  type="submit" value="отправить" /></td></tr>
     </table>
+    <div class="stl-butt">
+        @Html.ActionLink("Вернуться назад", "GetStudent", "StudentAction")
+    </div>
 </form>
 
-<div id="time"></div>
+

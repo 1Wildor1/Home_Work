@@ -39,3 +39,62 @@ textarea {
 .k-textbox {
     width: 180px;
 }
+
+.tbl{
+    width: 1000px;
+    align-items:center;
+    margin:0 0 0 180px;
+}
+
+.tbl td {
+    border-bottom: 1px solid black;
+}
+
+.tbl-tr td {
+    border-bottom: none;
+}
+
+a{
+    text-decoration:none;
+    border: 1px solid black; 
+    border-radius: 10px;
+    padding:5px;
+    color:black; 
+}
+
+.a-danger{
+    background-color:palevioletred;
+
+}
+
+.a-update {
+    background-color: deepskyblue;
+}
+.stl-butt {
+    margin: 30px 0 0 0;
+}
+.td-cent{
+    display: flex;
+    margin:0 0 0 50px;
+}
+.td-cent select{
+    margin:0 0 0 20px;
+    height: 25px;
+}
+
+.inp-none{
+    margin: 0;
+}
+.form-cen {
+    margin: 50px auto;
+}
+.form-cen input{
+    margin:0 0 0 50px;
+}
+
+.tamp{
+    margin:20px auto;
+}
+.crtStud{
+    background-color:rgb(172, 238, 172);
+}
