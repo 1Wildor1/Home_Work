@@ -52,7 +52,7 @@ namespace Home_Work.DAL.Repositories
 
                 using (var cmd = new SqlCommand(StudentSqlCreator.ForDelete(id).SqlText, sqlConnection))
                 {
-                    var reader = cmd.ExecuteReader();
+                    var reader = cmd.ExecuteNonQuery();
 
                     cmd.CommandType = CommandType.Text;
 

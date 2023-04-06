@@ -1,4 +1,5 @@
-﻿using Home_Work.DAL.Infrastructure;
+﻿using Azure.Core;
+using Home_Work.DAL.Infrastructure;
 using Home_Work.DAL.Repositories;
 using System;
 using System.IO;
@@ -18,6 +19,7 @@ namespace Home_Work.DAL.Controllers
             this.repository = repository;
         }
 
+        //Get___________________________________
         [HttpGet]
         public ActionResult GetStudent()
         {
@@ -33,31 +35,82 @@ namespace Home_Work.DAL.Controllers
             return View(studentModel);
         }
 
+        //UpDate________________________________
         [HttpPost]
         public ActionResult UpDate(int id, string name, string lastName, string yearOfStudy)
         {
-
-            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(lastName) || string.IsNullOrEmpty(yearOfStudy))
+                var studentArray = repository.Select();
+                var examination = studentArray.FirstOrDefault(x => x.StudentID == id);
+            try
             {
-                TempData["SM"] = "не удалось обновить Студента!";
-            }
-            else
-            {
-                repository.UpDate(id, name, lastName, yearOfStudy);
-                //TempData["SM"] = "Вы обновили Студента!";
-            }
 
-            ViewBag.Student = repository.Select();
-            return View("GetStudent");
+                if (examination == null)
+                {
+                    TempData["SM"] = "такого пользователя нет!";
+
+                    ViewBag.Message = "alert-danger";
+                    var studentModel1 = repository.GetById(id);
+                    return View(studentModel1);
+                }
+
+                if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(lastName) || string.IsNullOrEmpty(yearOfStudy))
+                {
+                    TempData["SM"] = "Одно из полей пустое!";
+
+                    ViewBag.Message = "alert-danger";
+                    var studentModel1 = repository.GetById(id);
+                    return View(studentModel1);
+
+                }
+
+                var regex = new Regex(@"^[а-яА-ЯёЁa-zA-Z]*$");
+
+                if (!regex.IsMatch(name) || !regex.IsMatch(lastName))
+                {
+                    TempData["SM"] = "В имени или фамилии не должно быть чисел и спецсимволов!";
+
+                    ViewBag.Message = "alert-danger";
+                    var studentModel1 = repository.GetById(id);
+                    return View(studentModel1);
+                }
+
+                var students = repository.Select().ToArray();
+
+                for (int i = 0; i < students.LongCount(); i++)
+                {
+                    if (students[i].FirstName == name && students[i].LastName == lastName)
+                    {
+                        TempData["SM"] = "Такой студент уже есть!";
+
+                        ViewBag.Message = "alert-danger";
+
+                        var studentModel1 = repository.GetById(id);
+                        return View(studentModel1);
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                TempData["SM"] = ex.Message.ToString();
+                ViewBag.Message = "alert-danger";
+                var studentModel1 = repository.GetById(id);
+                return View(studentModel1);
+            }
+            repository.UpDate(id, name, lastName, yearOfStudy);
+            var studentModel = repository.GetById(id);
+            ViewBag.Message = "alert-success";
+            TempData["SM"] = "Вы обновили Студента!";
+            return View(studentModel);
         }
 
         [HttpGet]
         public ActionResult CreateStudent()
         {
-
             return View();
         }
 
+        //Create_______________________
         [HttpPost]
         public ActionResult CreateStudent(string name, string lastname, string yearOfStudy)
         {
@@ -70,7 +123,6 @@ namespace Home_Work.DAL.Controllers
             }
             else
             {
-
                 var students = repository.Select().ToArray();
 
                 for (int i = 0; i < students.LongCount(); i++)
@@ -83,39 +135,70 @@ namespace Home_Work.DAL.Controllers
 
                         return View();
                     }
-
                 }
 
-                var regex = new Regex(@"^[0-9]+$");
+                var regex = new Regex(@"^[а-яА-ЯёЁa-zA-Z]*$");
 
-                if(regex.IsMatch(name) || regex.IsMatch(lastname))
+                if (!regex.IsMatch(name) || !regex.IsMatch(lastname))
                 {
-
-                    TempData["SM"] = "В имени или фамилии не должно быть чисел!";
+                    TempData["SM"] = "В имени или фамилии не должно быть чисел и спецсимволов!";
 
                     ViewBag.Message = "alert-danger";
 
                     return View();
-
                 }
 
-                repository.CreateNewStudent(name, lastname, yearOfStudy);
-                ViewBag.Message = "alert-success";
-                TempData["SM"] = "Вы создали Студента!";
+                try
+                {
+                    repository.CreateNewStudent(name, lastname, yearOfStudy);
+                    ViewBag.Message = "alert-success";
+                    TempData["SM"] = "Вы создали Студента!";
+                }
+                catch (Exception ex)
+                {
+
+                    TempData["SM"] = ex.Message.ToString();
+                    ViewBag.Message = "alert-danger";
+                    return View();
+                }
             }
 
             return View();
         }
 
-        //public ActionResult Delete(int id)
-        //{
-        //    repository.Delete(id);
+        //Delete______________
+        public ActionResult Delete(int id)
+        {
 
-        //    TempData["SM"] = "Вы удалили студента";
+            var studentArray = repository.Select();
+            var examination = studentArray.FirstOrDefault(x => x.StudentID == id);
 
-        //    ViewBag.Student = repository.Select();
-        //    return View("GetStudent");
-        //}
+            if (examination == null)
+            {
+                TempData["SM"] = "такого пользователя нет!";
+
+                ViewBag.Message = "alert-danger";
+                ViewBag.Student = repository.Select();
+                return View("GetStudent");
+            }
+            try
+            {
+                repository.Delete(id);
+
+            }
+            catch (Exception ex)
+            {
+                TempData["SM"] = ex.Message.ToString();
+                ViewBag.Student = repository.Select();
+                return View("GetStudent");
+            }
+
+            ViewBag.Message = "alert-success";
+            ViewBag.Student = repository.Select(); 
+            return View("GetStudent");
+        }
+
+       
 
     }
 }

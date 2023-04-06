@@ -11,7 +11,7 @@
 
 @if (TempData["SM"] != null)
 {
-    <div class="alert alert-success tamp">
+    <div class="alert @ViewBag.Message tamp">
         @TempData["SM"]
     </div>
 }
@@ -40,5 +40,4 @@
     </tbody>
 </table>
 
-
-<script src="~/Scripts/myScripts/JavaScript.js"></script>
+<script src="~/Scripts/myScripts/Student.js"></script>

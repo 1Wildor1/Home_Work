@@ -6,13 +6,19 @@
 
 <h3>Форма для создания студента</h3>
 
+@if (TempData["SM"] != null)
+{
+    <div class="alert @ViewBag.Message tamp">
+        @TempData["SM"]
+    </div>
+}
 
 <form class="form-cen" method="post" action="">
-    <input type="hidden" name="id" value="@Model.StudentID"/>
+    <input type="hidden" name="id" value="@Model.StudentID" />
     <table>
         <tr>
             <td><p>Имя:</p></td>
-            <td><input type="text" name="name" value="@Model.FirstName"/></td>
+            <td><input type="text" name="name" value="@Model.FirstName" /></td>
         </tr>
 
         <tr>
@@ -32,10 +38,11 @@
                 </select>
             </td>
         </tr>
-        <tr><td><input class="inp-none" type="submit" value="отправить" /></td></tr>
+        <tr><td><input onclick="Update()" class="inp-none" type="submit" value="отправить" /></td></tr>
     </table>
     <div class="stl-butt">
-    @Html.ActionLink("Вернуться назад", "GetStudent", "StudentAction")
+        @Html.ActionLink("Вернуться назад", "GetStudent", "StudentAction")
     </div>
 </form>
 
+<script src="~/Scripts/myScripts/Student.js"></script>
