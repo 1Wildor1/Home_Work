@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "GetStudent";
+}
+
+<link href="~/Content/Site.css" rel="stylesheet" />
+
+
+<h2>GetStudent</h2>
+
+<a class="crtStud" href="/StudentAction/CreateStudent">Создать студента</a>
+
+@if (TempData["SM"] != null)
+{
+    <div class="alert @ViewBag.Message tamp">
+        @TempData["SM"]
+    </div>
+}
+
+<table class="tbl">
+    <thead>
+        <tr class="tbl-tr">
+            <td><b>Name</b></td>
+            <td><b>Last Name</b></td>
+            <td><b>Year Of Study</b></td>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in ViewBag.Student)
+        {
+            <tr id="@item.StudentID">
+                <td><P>@item.FirstName</P></td>
+                <td><p>@item.LastName</p></td>
+                <td><p>@item.YearOfStudy</p></td>
+
+                <td><a onclick="deleteMassage(@item.StudentID)" id="@item.StudentID" class="a-danger">удалить</a></td>
+                <td><a class="a-update" href="/StudentAction/UpDate/@item.StudentID">обновить</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script src="~/Scripts/myScripts/Student.js"></script>

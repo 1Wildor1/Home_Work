@@ -7,7 +7,6 @@ using System.Web;
 
 namespace Home_Work.DAL.Models
 {
-   [Table("tbl_Student")]
     public class Student
     {
         [Key]

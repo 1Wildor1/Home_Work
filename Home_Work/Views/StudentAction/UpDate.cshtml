@@ -1,0 +1,48 @@
+﻿@model Home_Work.DAL.Models.Student
+
+@{
+    ViewBag.Title = "UpDate";
+}
+
+<h3>Форма для создания студента</h3>
+
+@if (TempData["SM"] != null)
+{
+    <div class="alert @ViewBag.Message tamp">
+        @TempData["SM"]
+    </div>
+}
+
+<form class="form-cen" method="post" action="">
+    <input type="hidden" name="id" value="@Model.StudentID" />
+    <table>
+        <tr>
+            <td><p>Имя:</p></td>
+            <td><input type="text" name="name" value="@Model.FirstName" /></td>
+        </tr>
+
+        <tr>
+            <td><p>Фамилия:</p></td>
+            <td><input type="text" name="lastname" value="@Model.LastName" /></td>
+        </tr>
+
+        <tr>
+            <td><p>Курс:</p></td>
+            <td class="td-cent">
+                <p>@Model.YearOfStudy</p>
+                <select id="yearOfStudy" name="yearOfStudy">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                </select>
+            </td>
+        </tr>
+        <tr><td><input onclick="Update()" class="inp-none" type="submit" value="отправить" /></td></tr>
+    </table>
+    <div class="stl-butt">
+        @Html.ActionLink("Вернуться назад", "GetStudent", "StudentAction")
+    </div>
+</form>
+
+<script src="~/Scripts/myScripts/Student.js"></script>
